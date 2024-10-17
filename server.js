@@ -73,9 +73,33 @@ const login= async (req, res) => {
 }
 
 
-app.listen(9000,()=>{
-    console.log(`server started on port 9000`)
-})
+const server = app.listen(9000, "0.0.0.0", () => {
+	console.log(`Server is running on port 9000`);
+});
+
+// Graceful shutdown
+const gracefulShutdown = () => {
+	console.log("Received shutdown signal, shutting down gracefully...");
+	server.close((err) => {
+		if (err) {
+			console.error("Error during server shutdown:", err);
+			process.exit(1);
+		}
+		console.log("Server closed successfully.");
+		process.exit(0);
+	});
+};
+
+// Listen for termination signals
+process.on("SIGTERM", gracefulShutdown);
+process.on("SIGINT", gracefulShutdown);
+
+// Error handler
+app.use((err, req, res, next) => {
+	console.error(err.stack);
+	res.status(500).send("Something broke!");
+});
+
 
 app.use("/signup",signup)
 app.use("/login",login)
