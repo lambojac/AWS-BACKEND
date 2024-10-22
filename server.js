@@ -14,7 +14,7 @@ const signup= async (req, res) => {
 
     // Check if all required fields are provided
     if (!name || !age || !phoneNumber) {
-        return res.status(400).json({ message: "Name, age, and phone number are required" });
+        return res.status(400).json({ message: "Name, age, and phone number are required and compulsory" });
     }
 
     try {
