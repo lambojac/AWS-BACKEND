@@ -21,7 +21,7 @@ const signup= async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ phoneNumber });
         if (existingUser) {
-            return res.status(400).json({ message: "User with this phone number already exists" });
+            return res.status(400).json({ message: "User with this phone number and details already exists" });
         }
 
         // Create a new user
