@@ -40,7 +40,7 @@ const login= async (req, res) => {
 
     // Check if phone number is provided
     if (!phoneNumber) {
-        return res.status(400).json({ message: "Phone number is required" });
+        return res.status(400).json({ message: "Phone number is required kindly inpyt yours phone no" });
     }
 
     try {
